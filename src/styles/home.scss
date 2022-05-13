@@ -17,13 +17,13 @@ $MAIN_COLOR: #474955;
     border:1px solid #E3E6EC;
 }
 @mixin ID_WIDTH {
-    flex:1 1 5%;
+    flex:1 1 8%;
 }
 @mixin TITLE_WIDTH {
-    flex:1 1 50%;
+    flex:1 1 46%;
 }
 @mixin DESCRIPTION_WIDTH {
-    flex:1 1 45%;
+    flex:1 1 41%;
 }
 .container {
     @include CENTER_H;
@@ -36,7 +36,7 @@ $MAIN_COLOR: #474955;
         gap:10px;
         color:white;
         font-family: 'Roboto';
-        .search-container {
+        .search-container  {
             @include CENTER_V;
             input:focus{
                 outline:2px solid blue;
@@ -46,43 +46,47 @@ $MAIN_COLOR: #474955;
                 font-size:14px;
             }
             .input-container {
-                width:55%;
+                width:57%;
                 input {
                     width:100%;
-                    padding:10px;
+                    padding:10px 30px;
                     background:$MAIN_COLOR;
                     font-size: 14px;
                     color:white;
+                    height:54px;
                 }
             }
             svg {
-                margin-left:-30px;
-                width:15px;
-                cursor: pointer;
-            }
+                    padding:12px 14px;
+                    margin-left:-48px;
+                    cursor: pointer;
+                    width:18px;
+                }
+            
         }
         .posts-container {
             .header {
                 background:$MAIN_COLOR;
-                padding:10px;
+              
                 display:flex;
                 justify-content:space-between;
                 font-size:14px;
+                height:54px;
                 .active {
                     border-bottom:1px solid white;
                 }
                 .id {
-                    flex:1 1 1%;
-                    @include CENTER_H;
+                    @include ID_WIDTH;
+                    @include CENTER_BOTH;
+                    padding:10px;
+
                 }
                 .title {
-                    flex:1 1 40%;
-                    @include CENTER_H;
+                    @include CENTER_BOTH;
                     @include TITLE_WIDTH;
                 }
                 .description {
-                    flex:1 1 40%;
-                    @include CENTER_H;
+                    @include CENTER_BOTH;
                     @include DESCRIPTION_WIDTH;
                 }
                 button {
@@ -92,7 +96,7 @@ $MAIN_COLOR: #474955;
                     svg {
                         width:10px;
                         height:11px;
-                        margin-left:15px;
+                        margin-left:25px;
                     }
                 }
             }
@@ -127,10 +131,11 @@ $MAIN_COLOR: #474955;
         }
         .paggination-container {
             display: flex;
-            justify-content:space-around;
+            justify-content:space-between;
             color:#474955;
             font-style: italic;
             font-size:18px;
+            padding:0 45px;
             .pages {
                 @include CENTER_H;
                 align-items:center;

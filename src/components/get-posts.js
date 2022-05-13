@@ -16,7 +16,7 @@ export default function useFetch(){
 
     }, [])
     return {
-        loading,
-        posts
+        posts,
+        loading
     }
 }
