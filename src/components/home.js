@@ -1,46 +1,48 @@
 import { useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import useFetch from "./get-posts";
 import '../styles/home.scss';
 import SVG from "./svg";
-import { useSelector, useDispatch } from "react-redux";
 import {
-    SEARCH_VALUE, MAX, MIN, SEARCHED_POSTS, SORT_BY_DISCRIPTION, SORT_BY_TITLE, SORT_BY_ID,
-    TOTAL_PAGES, TOTAL_SORTED_POSTS, CURRENT_PAGE, SORTED_POSTS, CURRENT_SORT
+    SEARCH_VALUE, SEARCHED_POSTS, SORT_BY_DISCRIPTION, SORT_BY_TITLE, SORT_BY_ID,
+    TOTAL_PAGES, TOTAL_SORTED_POSTS, SORTED_POSTS, CURRENT_SORT
 } from '../redux/actions';
+
 function Home() {
-    const {posts, loading} = useFetch();
-    const searchedPosts = useSelector(state => state.searchedPosts);
-    const searchValue = useSelector(state => state.searchValue);
-    const min = useSelector(state => state.min);
-    const max  = useSelector(state => state.max);
-    const currentSort = useSelector(state => state.currentSort);
-    const currentPage = useSelector(state => state.currentPage);
-    const totalPages = useSelector(state => state.totalPages);
-    const sortedPosts = useSelector(state => state.sortedPosts);
-    const sortById = useSelector(state => state.sortById);
-    const sortByDescription = useSelector(state => state.sortByDescription);
-    const sortByTitle = useSelector(state => state.sortByTitle);
-    const dispatch = useDispatch();
-  
+  const {posts, loading} = useFetch();
+  const {id } = useParams();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const currentPage = parseInt(id);
+  const searchedPosts = useSelector(state => state.searchedPosts);
+  const searchValue = useSelector(state => state.searchValue);
+  const max  = currentPage * 10;
+  const min = (currentPage * 10) - 10;
+  const currentSort = useSelector(state => state.currentSort);
+  const totalPages = useSelector(state => state.totalPages);
+  const sortedPosts = useSelector(state => state.sortedPosts);
+  const sortById = useSelector(state => state.sortById);
+  const sortByDescription = useSelector(state => state.sortByDescription);
+  const sortByTitle = useSelector(state => state.sortByTitle);
     useEffect(()=> {
       const sortPosts = ()=> {
             let postsArr = [];
             ((searchValue.length > 0)?searchedPosts:posts).forEach((value, index) => {if(index >= min && index < max){
                 if(sortById === "-id" && currentSort === "id"){postsArr.push(value);}
                 else if(sortById==='id' && currentSort === 'id'){postsArr.unshift(value);}
-                else {postsArr.push(value);}}
+                else {postsArr.push(value);}
+              }
             });
             if(searchValue.length > 0){
                 const totalPages = Math.ceil(searchedPosts.length/10);
                 dispatch(TOTAL_PAGES(totalPages || 1));
                 dispatch(TOTAL_SORTED_POSTS(searchedPosts.length));
-                if(currentPage > totalPages){
-                    dispatch(CURRENT_PAGE(1));
-                    dispatch(MAX(10));
-                    dispatch(MIN(0));
-                }
-            }else {   dispatch(TOTAL_PAGES(Math.ceil(posts.length/10)));  dispatch(TOTAL_SORTED_POSTS(posts.length));}
-            
+                if(currentPage > totalPages){navigate("/1");}
+            }else {  
+              dispatch(TOTAL_PAGES(Math.ceil(posts.length/10)));  
+              dispatch(TOTAL_SORTED_POSTS(posts.length));
+            }
             function Sort(direction){
                 for(let i =0; i < postsArr.length; i++){
                     let index = i;
@@ -71,7 +73,7 @@ function Home() {
             dispatch(SORTED_POSTS(postsArr));
         }
         sortPosts();
-        }, [dispatch, searchedPosts, currentPage, posts, loading, sortById, sortByTitle, sortByDescription, currentSort, max, min, searchValue])
+        }, [dispatch, navigate, searchedPosts, currentPage, posts, loading, sortById, sortByTitle, sortByDescription, currentSort, max, min, searchValue])
   const pagginationPagesArr = ()=> {
     //returns array of pages numbers [1,2,4,..]
       let pagesArr = [];
@@ -81,16 +83,23 @@ function Home() {
   }
   const handlePageSwitch = (direction)=> {
     if(direction==='next'){
-      if(currentPage >= totalPages){dispatch(CURRENT_PAGE(totalPages));}
-      else{dispatch(MAX(max+10));dispatch(MIN(min+10));dispatch(CURRENT_PAGE(currentPage + 1));}
+      if(currentPage >= totalPages){
+        navigate(`/${totalPages}`);
+      }
+      else{
+        navigate(`/${currentPage + 1}`);
+      }
     }else if(direction==='previous'){
-      if(currentPage <= 1){dispatch(CURRENT_PAGE(1));dispatch(MAX(10));dispatch(MIN(0));}
-      else{dispatch(MAX(max-10));dispatch(MIN(min-10));dispatch(CURRENT_PAGE(currentPage - 1));}
+      if(currentPage <= 1){
+        navigate(`/1`);
+      }
+      else{
+        navigate(`/${currentPage - 1}`);
+      }
     }else {
-      dispatch(MAX(direction*10));
-      dispatch(MIN(direction*10 - 10));
-      dispatch(CURRENT_PAGE(direction));
+      navigate(`/${direction}`);
     }
+
   }
   const setSortType = (orderType)=> {
     //t  = title, d = body/description
@@ -123,7 +132,7 @@ const handleSearch = (e)=> {
   }
 }
   return (
-    <div className="App">
+    <div className="Home">
       {loading?<div className='loader'><span></span></div>:null}
         <div className="container">
           <div className="main-container">

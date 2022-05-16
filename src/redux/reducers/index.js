@@ -9,22 +9,7 @@ const sortedPostsReducer = (state = [], action)=> {
             return state;
     }
 }
-const minReducer = (state = 0, action)=> {
-    switch(action.type){
-        case 'min/update':
-            return action.payload;
-        default:
-            return state;
-    }
-}
-const maxReducer = (state = 10, action)=> {
-    switch(action.type){
-        case 'max/update':
-            return action.payload;
-        default:
-            return state;
-    }
-}
+
 const currentSortReducer = (state = "id", action)=> {
     switch(action.type){
         case 'currentSort/update':
@@ -52,14 +37,6 @@ const sortByTitleReducer = (state = "t", action)=> {
 const sortByDescriptionReducer = (state = "d", action)=> {
     switch(action.type){
         case 'sortByDescription/update':
-            return action.payload;
-        default:
-            return state;
-    }
-}
-const currentPageReducer = (state  = 1, action)=> {
-    switch(action.type){
-        case 'currentPage/update':
             return action.payload;
         default:
             return state;
@@ -103,15 +80,12 @@ const totalSortedPostsReducer = (state  = 0, action)=> {
 }
 export const Reducers = combineReducers({
     sortedPosts:sortedPostsReducer,
-    min:minReducer,
-    max:maxReducer,
     currentSort:currentSortReducer,
     sortById:sortByIdReducer,
     sortByTitle:sortByTitleReducer,
     sortByDescription:sortByDescriptionReducer,
-    currentPage:currentPageReducer,
     searchedPosts:searchedPostsReducer,
     searchValue:searchValueReducer,
     totalPages:totalPagesReducer,
     totalSortedPosts:totalSortedPostsReducer
-})
+});

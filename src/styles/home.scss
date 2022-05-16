@@ -31,7 +31,7 @@ $MAIN_COLOR: #474955;
         @include CENTER_H;
         padding:15px;
         width:99%;
-        max-width: 1200px;
+        max-width: 1077px;
         flex-direction:column;
         gap:10px;
         color:white;
@@ -72,9 +72,7 @@ $MAIN_COLOR: #474955;
                 justify-content:space-between;
                 font-size:14px;
                 height:54px;
-                .active {
-                    border-bottom:1px solid white;
-                }
+                
                 .id {
                     @include ID_WIDTH;
                     @include CENTER_BOTH;

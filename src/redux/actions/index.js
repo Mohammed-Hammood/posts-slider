@@ -4,18 +4,7 @@ export const SORTED_POSTS = (posts)=> {
         payload:posts
     }
 }
-export const MIN = (value)=> {
-    return {
-        type:"min/update",
-        payload:value
-    }
-}
-export const MAX = (value)=> {
-    return {
-        type:"max/update",
-        payload:value
-    }
-}
+
 export const SORT_BY_ID = (value)=> {
     return {
         type:"sortById/update",
@@ -33,13 +22,6 @@ export const SORT_BY_TITLE = (value)=> {
 export const SORT_BY_DISCRIPTION = (value)=> {
     return {
         type:"sortByDescription/update",
-        payload:value
-    }
-}
-
-export const CURRENT_PAGE = (value)=> {
-    return {
-        type:"currentPage/update",
         payload:value
     }
 }
