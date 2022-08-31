@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import useFetch from "./get-posts";
+import useFetch from "../components/get-posts";
 import '../styles/home.scss';
-import SVG from "./svg";
+import SVG from "../components/svg";
 import {
     SEARCH_VALUE, SEARCHED_POSTS, SORT_BY_DISCRIPTION, SORT_BY_TITLE, SORT_BY_ID,
     TOTAL_PAGES, TOTAL_SORTED_POSTS, SORTED_POSTS, CURRENT_SORT

@@ -1,0 +1,25 @@
+@mixin CENTER_H{
+    display:flex;
+    justify-content:center;
+}
+@mixin CENTER_BOTH{
+    display:flex;
+    justify-content:center;
+    align-items:center;   
+}
+@mixin CENTER_V{
+    display:flex;
+    align-items:center;   
+}
+@mixin TABLE_BORDER{
+    border:1px solid #E3E6EC;
+}
+@mixin ID_WIDTH {
+    flex:1 1 8%;
+}
+@mixin TITLE_WIDTH {
+    flex:1 1 46%;
+}
+@mixin DESCRIPTION_WIDTH {
+    flex:1 1 41%;
+}
